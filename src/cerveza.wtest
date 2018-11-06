@@ -1,0 +1,30 @@
+import marcas.*
+import carpa.*
+import personas.*
+
+describe "oktober"{
+	const hofbrau = new Roja(lupulo=3.2, pais="Grecia")
+	const jarraChica = new Jarra (litros= 0.5, marca= hofbrau)
+	const jarraGrande = new Jarra (litros= 2, marca= hofbrau)
+	
+	const juan = new Personas(peso=100,nivelDeAguante=25,jarrasCompradas=[jarraChica,jarraGrande])
+	
+	const carp = new Carpa(limiteDeGente = 2, marca = hofbrau)
+	
+	test "punto 1 contenido de alcohol"{
+		assert.equals(0.04, jarraChica.cantDeAlcohol())
+	}
+	
+	test "punto 2 total de alcohol"{
+		assert.equals(0.2, juan.cantDeAlcoholIngerido())
+	}
+	test "punto 3 esta ebrio"{
+		assert.notThat(juan.estaEbria())
+		juan.jarrasCompradas().add(jarraGrande)
+		assert.that(juan.estaEbria())
+	}
+	test "punto 4 quiere entrar"{
+		assert.that(juan.quiereEntrar(carp))
+	}
+	
+}
